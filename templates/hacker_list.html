@@ -1,0 +1,120 @@
+{% extends "default/base.html" %}
+{% block content %}
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+            <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>攻击数据列表</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+            <table class="table table-striped table-bordered table-hover " id="editable" >
+            <thead>
+            <tr>
+                <th>域名</th>
+                <th>攻击ip</th>
+                <th>黑客位置</th>
+                <th>攻击类型</th>
+                <th>攻击时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in data %}
+            <tr class="gradeX">
+                <td>{{ i.domain }}</td>
+                <td>{{ i.atk_ip }}</td>
+                <td>{{ i.city }}{{ i.addr }}</td>
+                <td class="center">{{ i.atk_type }}</td>
+                <td class="center">{{ i.atk_time }}</td>
+            </tr>
+            {% end %}
+            </table>
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <ul class="pagination">
+                            <li>
+                            {% if previous %}
+                                <a href="/hacker/list/?page={{ previous }}">上一页</a>
+
+                            {% end %}
+                            </li>
+                            {% for i in page %}
+                                {% if i == current %}
+                                    <li class="active">
+                                        <a href="/hacker/list/?page={{ i }}">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="/hacker/list/?page={{ i }}">{{ i }}</a>
+                                    </li>
+                                {% end %}
+
+                            {% end %}
+                            <li>
+                                {% if next %}
+                                <a href="/hacker/list/?page={{ next }}">下一页</a>
+                                {% end %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+<script>
+
+        function fnClickAddRow() {
+            $('#editable').dataTable().fnAddData( [
+                "Custom row",
+                "New row",
+                "New row",
+                "New row",
+                "New row" ] );
+
+        }
+    </script>
+<style>
+    body.DTTT_Print {
+        background: #fff;
+
+    }
+    .DTTT_Print #page-wrapper {
+        margin: 0;
+        background:#fff;
+    }
+
+    button.DTTT_button, div.DTTT_button, a.DTTT_button {
+        border: 1px solid #e7eaec;
+        background: #fff;
+        color: #676a6c;
+        box-shadow: none;
+        padding: 6px 8px;
+    }
+    button.DTTT_button:hover, div.DTTT_button:hover, a.DTTT_button:hover {
+        border: 1px solid #d2d2d2;
+        background: #fff;
+        color: #676a6c;
+        box-shadow: none;
+        padding: 6px 8px;
+    }
+
+    .dataTables_filter label {
+        margin-right: 5px;
+
+    }
+</style>
+{% end %}
